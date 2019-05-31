@@ -13,6 +13,10 @@
                     "description": "Nuber of cores to allocate for the zeppelin instance",
                     "default": 2
                 },
+                "placement": {
+                  "type": "string",
+                  "description": "Placement constraints for Zeppelin"
+                },
                 "memory": {
                     "type": "integer",
                     "description": "Memory to allocate for the zeppelin instance, in MB",
@@ -99,6 +103,14 @@
             "shiro_conf_url": {
               "type": "string",
               "description": "URL to a file to use as shiro.ini (to configure users and permissions), mutually exclusive with shiro_conf_secret"
+            },
+            "env_extra_secret": {
+              "type": "string",
+              "description": "Path to a secret to use as content to append to zeppelin-env.sh (to configure env variables for zeppelin like notebook storage), mutually exclusive with zeppelin_env_url"
+            },
+            "env_extra_url": {
+              "type": "string",
+              "description": "URL to a file to append to zeppelin-env.sh (to configure env variables for zeppelin like notebook storage), mutually exclusive with zeppelin_env_secret"
             },
             "python_packages": {
                 "type": "string",

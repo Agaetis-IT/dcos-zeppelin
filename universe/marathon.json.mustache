@@ -9,6 +9,11 @@
       "secret": "shiroconf"
     },
     {{/zeppelin.shiro_conf_secret}}
+    {{#zeppelin.env_extra_secret}}
+    "ZEPPELIN_ENV_EXTRA_SH": {
+      "secret": "zeppelinenv"
+    },
+    {{/zeppelin.env_extra_secret}}
     {{#service.external_persistent_volume}}
     "ZEPPELIN_DATA_VOLUME": "/zeppelin-data",
     "ZEPPELIN_NOTEBOOK_DIR": "/zeppelin-data/notebook",
@@ -122,18 +127,20 @@
     }
   ],
   "fetch": [
-    {{#zeppelin.cacerts_url}}
+    { "uri": "file:///proc/sys/kernel/random/uuid", "extract": false, "executable": false, "cache": false }
+    {{#zeppelin.cacerts_url}},
     { "uri": "{{zeppelin.cacerts_url}}", "extract": false, "executable": false, "cache": false }
     {{/zeppelin.cacerts_url}}
-    {{#spark.use_hdfs}}
-    {{#zeppelin.cacerts_url}},{{/zeppelin.cacerts_url}}
+    {{#spark.use_hdfs}},
     { "uri": "{{spark.hdfs_config_url}}/hdfs-site.xml", "extract": false, "executable": false, "cache": false },
     { "uri": "{{spark.hdfs_config_url}}/core-site.xml", "extract": false, "executable": false, "cache": false }
     {{/spark.use_hdfs}}
-    {{#zeppelin.shiro_conf_url}}
-    {{#spark.use_hdfs}},{{/spark.use_hdfs}}{{^spark.use_hdfs}}{{#zeppelin.cacerts_url}},{{/zeppelin.cacerts_url}}{{/spark.use_hdfs}}
+    {{#zeppelin.shiro_conf_url}},
     { "uri": "{{zeppelin.shiro_conf_url}}", "extract": false, "executable": false, "cache": false }
     {{/zeppelin.shiro_conf_url}}
+    {{#zeppelin.env_extra_url}},
+    { "uri": "{{zeppelin.env_extra_url}}", "extract": false, "executable": false, "cache": false }
+    {{/zeppelin.env_extra_url}}
   ],
   "secrets": {
     {{#zeppelin.shiro_conf_secret}}
@@ -141,5 +148,11 @@
       "source": "{{zeppelin.shiro_conf_secret}}"
     }
     {{/zeppelin.shiro_conf_secret}}
+    {{#zeppelin.env_extra_secret}}
+    {{#zeppelin.shiro_conf_secret}},{{/zeppelin.shiro_conf_secret}}
+    "zeppelinenv": {
+          "source": "{{zeppelin.env_extra_secret}}"
+    }
+    {{/zeppelin.env_extra_secret}}
   }
 }
