@@ -3,6 +3,7 @@
   "instances": 1,
   "cpus": {{service.cores}},
   "mem": {{service.memory}},
+  "constraints": {{service.placement}},
   "env": {
     {{#zeppelin.shiro_conf_secret}}
     "ZEPPELIN_SHIRO_CONF": {

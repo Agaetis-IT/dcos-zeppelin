@@ -10,12 +10,21 @@
                 },
                 "cores": {
                     "type": "integer",
-                    "description": "Nuber of cores to allocate for the zeppelin instance",
+                    "description": "Number of cores to allocate for the zeppelin instance",
                     "default": 2
                 },
                 "placement": {
-                  "type": "string",
-                  "description": "Placement constraints for Zeppelin"
+                  "description": "Placement constraints for Zeppelin (NB : not a string but JSON, therefore dont use the UI text box but the JSON). Example: [[\"hostname\", \"UNIQUE\"]]",
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": [
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "default": [ [ "hostname", "UNIQUE"]  ]
                 },
                 "memory": {
                     "type": "integer",

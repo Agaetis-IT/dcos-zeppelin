@@ -1,6 +1,6 @@
-FROM mesosphere/spark:2.7.0-2.4.0-hadoop-2.7
+FROM mesosphere/spark:2.4.0-2.2.1-3-hadoop-2.6
 
-ARG SPARK_VERSION=2.7.0-2.4.0-hadoop-2.7
+ARG SPARK_VERSION=2.4.0-2.2.1-3-hadoop-2.6
 ARG ZEPPELIN_VERSION=0.8.1
 ARG PACKAGE_TYPE=all
 

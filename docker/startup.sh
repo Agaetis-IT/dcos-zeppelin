@@ -29,6 +29,16 @@ elif [ "$ZEPPELIN_SHIRO_CONF" != "" ]; then
   echo "$ZEPPELIN_SHIRO_CONF" > $CONF_DIR/shiro.ini
 fi
 
+if [ -f "$MESOS_SANDBOX/zeppelin-env-extra.sh" ]; then
+  cat $MESOS_SANDBOX/zeppelin-env-extra.sh >> $CONF_DIR/zeppelin-env.sh
+elif [ "$ZEPPELIN_ENV_EXTRA_SH" != "" ]; then
+  echo "$ZEPPELIN_ENV_EXTRA_SH" >> $CONF_DIR/zeppelin-env.sh
+fi
+
+if [ -f "$CONF_DIR/zeppelin-env.sh" ]; then
+  chmod +x $CONF_DIR/zeppelin-env.sh
+fi
+
 # Install extra python packages
 if [ -n "$PYTHON_PACKAGES" ]; then
   if [ -n "$PIP_PATH" ]; then
@@ -61,4 +71,4 @@ if [ "${TZ:+x}" == "x" ]; then
   fi
 fi
 
-SPARK_HOME=/opt/spark bin/zeppelin.sh $ZEPPELIN_CONFIG_OPTION start
+SPARK_HOME=/opt/spark/dist bin/zeppelin.sh $ZEPPELIN_CONFIG_OPTION start
